@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Form Validation and City Filtering</title>
+<script src="https://code.jquery.com/jquery3.6.0.min.js"></script>
+</head>
+<body>
+<h2>Form Validation and City Filtering</h2>
+<form id="myForm">
+<label for="name">Name:</label>
+<input type="text" id="name" required><br><br>
+<label for="phone">Phone number:</label>
+<input type="text" id="phone" required pattern="\d{10}"><br><br>
+<label for="email">Email Address:</label>
+<input type="email" id="email" required><br><br>
+<label for="state">State:</label>
+<select id="state" required>
+<option value="">Select State</option>
+<option value="Maharashtra">Maharashtra</option>
+<option value="Karnataka">Karnataka</option>
+<option value="Gujarat">Gujarat</option>
+</select><br><br>
+<label for="city">City:</label>
+<select id="city" required>
+<option value="">Select City</option>
+</select><br><br>
+<label for="country">Country:</label>
+<input type="text" id="country" required><br><br>
+<label for="pincode">Pin code:</label>
+<input type="text" id="pincode" required pattern="\d{6}"><br><br>
+<input type="submit" value="Submit">
+</form>
+<script>
+const citiesByState = {
+"Maharashtra": [
+"Mumbai", "Pune", "Nagpur", "Nashik",
+"Aurangabad",
+"Solapur", "Amravati", "Kolhapur",
+"Sangli", "Satara"
+],
+"Karnataka": [
+"Bangalore", "Mysore", "Hubli",
+"Belgaum", "Mangalore",
+"Gulbarga", "Davanagere", "Shimoga",
+"Bellary", "Tumkur"
+],
+"Gujarat": [
+"Ahmedabad", "Surat", "Vadodara",
+"Rajkot", "Bhavnagar",
+"Jamnagar", "Junagadh", "Gandhinagar",
+"Anand", "Bharuch"
+]
+};
+// Populate the city dropdown based on the selected state
+document.getElementById('state').addEventListener('change', function () {
+const state = this.value;
+const citySelect = document.getElementById('city');
+citySelect.innerHTML = "<option value=''>Select City</option>";
+if (state in citiesByState) {
+const cities = citiesByState[state];
+cities.forEach(function (city) {
+const option = document.createElement('option');
+option.value = city;
+option.textContent = city;
+citySelect.appendChild(option);
+});
+}
+});
+// Form submission validation
+document.getElementById('myForm').addEventListener('submit', function (e) {
+const name = document.getElementById('name').value;
+const phone = document.getElementById('phone').value;
+const email = document.getElementById('email').value;
+const state = document.getElementById('state').value;
+const city = document.getElementById('city').value;
+const country = document.getElementById('country').value;
+const pincode = document.getElementById('pincode').value;
+if (!name || !phone || !email || !state || !city || !country || !pincode) {
+e.preventDefault();
+alert('All fields are mandatory');
+}
+});
+</script>
+</body>
+</html>
