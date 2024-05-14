@@ -1,0 +1,7 @@
+op: A device
+Appl A devicee: A fruit
+Apple: A fruit
+Phone: A device
+Phone: A device
+Dog: An animal
+Banana: A fruit
